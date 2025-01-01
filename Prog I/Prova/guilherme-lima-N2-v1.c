@@ -3,6 +3,8 @@
 #include <time.h>
 #include <locale.h>
 
+#define ARRAY_LENGTH 150
+
 struct peca {
 	int cod;
 	char categoria[25];
@@ -10,12 +12,31 @@ struct peca {
 	int quantidade;
 };
 
+void bubbleSort(struct peca array[], int length){
+	struct peca aux[length];
+	int i;
+	int j;
+	
+	for(i=0;i<149;i++) {
+		for(j=i+1;j<150;j++) {
+			if(array[i].quantidade > array[j].quantidade) {
+				aux[i] = array[j];
+				array[j] = array[i];
+				array[i] = aux[i];
+			}
+		}
+	}
+}
+
+
+
+
 int main() {
 	srand(time(NULL));
 	setlocale(LC_ALL, "Portuguese");
 	
 	int i, j, ct;
-	struct peca pecas[150], aux[150];
+	struct peca pecas[150];
 	float medPeso, totPeso = 0;
 	float medPesoAlta, totPesoAlta = 0, medPesoMod, totPesoMod = 0, medPesoBaixa, totPesoBaixa = 0;
 	float totBaixa = 0, totMod = 0, totAlta = 0, percBaixa, percMod, percAlta, totAlta10 = 0, percAlta10;
@@ -69,7 +90,7 @@ int main() {
 	printf("Percentual de peças de alta prioridade %.1f%%\n", percAlta);
 	printf("Percentual de peças de alta prioridade com menos de 10un: %.1f%%\n", percAlta10);
 	
-	for(i=0;i<149;i++) {
+	/*for(i=0;i<149;i++) {
 		for(j=i+1;j<150;j++) {
 			if(pecas[i].quantidade > pecas[j].quantidade) {
 				aux[i] = pecas[j];
@@ -77,8 +98,9 @@ int main() {
 				pecas[i] = aux[i];
 			}
 		}
-	}
+	}*/
 	
+	bubbleSort(pecas, ARRAY_LENGTH);
 	
 	printf("\n\n");
 	printf("Vetor ordenado\n");
